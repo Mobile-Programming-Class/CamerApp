@@ -41,7 +41,8 @@
         <ImageView
             android:id="@+id/ivTest"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:src="@drawable/diluc"/>
     </com.camerax.app.helper.SquareLayout>
 
 </RelativeLayout>

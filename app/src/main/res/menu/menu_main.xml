@@ -8,6 +8,9 @@ tools:context="com.camerax.app.activity.MainActivity">
         android:id="@+id/action_add"
         android:title="@string/action_add"/>
     <item
+        android:id="@+id/action_add_from_gallery"
+        android:title="@string/action_add_from_gallery"/>
+    <item
         android:id="@+id/action_exit"
         android:title="@string/action_exit"
         app:showAsAction="never"/>

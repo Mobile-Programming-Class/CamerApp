@@ -4,4 +4,6 @@
     <string name="action_share">Share</string>
     <string name="action_exit">Exit</string>
     <string name="action_add">Add Image</string>
+    <string name="action_add_to_firebase">Upload Image</string>
+    <string name="action_add_from_gallery">Upload Gallery Image</string>
 </resources>

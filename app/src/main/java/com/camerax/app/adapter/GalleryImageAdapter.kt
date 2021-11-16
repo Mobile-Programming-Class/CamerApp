@@ -33,12 +33,14 @@ class GalleryImageAdapter(private val itemList: List<Image>) : RecyclerView.Adap
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind() {
             val image = itemList.get(adapterPosition)
+
             // load image
             Glide.with(context!!)
                 .load(image.imageUrl)
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(itemView.ivGalleryImage)
+
             // adding click or tap handler for our image layout
             itemView.container.setOnClickListener {
                 listener?.onClick(adapterPosition)
