@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:padding="16dp"
     android:layout_marginBottom="8dp"
-    android:background="@android:color/white"
+    android:background="@drawable/row_bg"
     android:layout_height="wrap_content">
 
 
@@ -35,8 +35,8 @@
         android:id="@+id/tvCaption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_below="@id/tvIdLabel"
         android:layout_alignLeft="@id/tvIdLabel"
+        android:layout_marginTop="20dp"
         android:text="Caption" />
 </RelativeLayout>

@@ -55,15 +55,16 @@ class ImageActivity : AppCompatActivity(), GalleryImageClickListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = galleryAdapter
 
-        etInputName = findViewById<EditText>(R.id.etInputName)
-        ivToUpload = findViewById<ImageView>(R.id.ivToUpload)
-
         initItem()
 
         refresh()
     }
 
     fun initItem () {
+
+        etInputName = findViewById<EditText>(R.id.etInputName)
+        ivToUpload = findViewById<ImageView>(R.id.ivToUpload)
+
         val btnAddFromGallery = findViewById<ImageButton>(R.id.btnAddFromGallery)
         val btnAddFromCamera = findViewById<ImageButton>(R.id.btnAddFromCamera)
         val btnDelete = findViewById<ImageButton>(R.id.btnDelete)
@@ -87,7 +88,9 @@ class ImageActivity : AppCompatActivity(), GalleryImageClickListener {
             ivToUpload.setImageBitmap(photo)
 
             // TODO: NAME FOR FILE
-            val docId = UUID.randomUUID().toString()
+            var docId = etInputName.text.toString()
+            Toast.makeText(applicationContext, docId, Toast.LENGTH_LONG).show()
+            if (docId.equals("")) docId =  UUID.randomUUID().toString()
             val addRecord = myFirebaseStorage?.uploadCaptured(ivToUpload, docId)
             refresh()
         }
@@ -107,7 +110,9 @@ class ImageActivity : AppCompatActivity(), GalleryImageClickListener {
                 ivToUpload.setImageBitmap(bitmap)
 
                 // TODO: NAME FOR FILE
-                val docId = UUID.randomUUID().toString()
+                var docId = etInputName.text.toString()
+                Toast.makeText(applicationContext, docId, Toast.LENGTH_LONG).show()
+                if (docId.equals("")) docId =  UUID.randomUUID().toString()
                 val addRecord = myFirebaseStorage!!.uploadImage(filePath, docId)
                 refresh()
             } catch (e: IOException) {
@@ -138,6 +143,7 @@ class ImageActivity : AppCompatActivity(), GalleryImageClickListener {
                     imageList.add(Image(document.data.get("imageUrl") as String, "caption is empty te-he", document.data.get("docId") as String))
                 }
                 ivToUpload.visibility = View.INVISIBLE
+                ivToUpload.getLayoutParams().height = 0;
                 galleryAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exc ->
