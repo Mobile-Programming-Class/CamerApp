@@ -30,7 +30,7 @@ class AppFirebaseFirestore(private val context: Context, collection: String) {
     fun read(): ArrayList<Image> {
         var dataImage = ArrayList<Image>()
         var errorReading = ""
-        galleryCollection.orderBy("uploadat", Query.Direction.DESCENDING)
+        galleryCollection.orderBy("uploadAt", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {

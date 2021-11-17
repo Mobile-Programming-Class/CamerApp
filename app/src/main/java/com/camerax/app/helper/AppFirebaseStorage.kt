@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -23,7 +24,7 @@ import kotlin.collections.HashMap
 class AppFirebaseStorage(private val context: Context) {
 
     private val storageReference = FirebaseStorage.getInstance().reference
-
+    private val appFirebaseStorage = AppFirebaseFirestore(context, "posts")
     fun getStorageReference (): StorageReference {
         return storageReference
     }
@@ -57,7 +58,7 @@ class AppFirebaseStorage(private val context: Context) {
 
     private fun runningUploadTask(ref: StorageReference?, uploadTask: UploadTask?, docId: String) : HashMap<String, Any> {
 
-        val data = HashMap<String, Any>()
+        val dataRecorded = HashMap<String, Any>()
         val urlTask = uploadTask?.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
             if (!task.isSuccessful) {
                 task.exception?.let {
@@ -67,11 +68,15 @@ class AppFirebaseStorage(private val context: Context) {
             return@Continuation ref?.downloadUrl
         })?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
+
+                val dataRecorded = HashMap<String, Any>()
                 val downloadUri = task.result
 //                addUploadRecordToDb(downloadUri.toString())
-                data["docId"] = docId
-                data["imageUrl"] = downloadUri.toString()
-                data["uploadAt"] = Timestamp.now()
+                dataRecorded["docId"] = docId
+                dataRecorded["imageUrl"] = downloadUri.toString()
+                dataRecorded["uploadAt"] = Timestamp.now()
+
+                appFirebaseStorage.add(docId, dataRecorded)
 
             } else {
                 Toast.makeText(context, "Error saving to DB", Toast.LENGTH_LONG).show()
@@ -79,6 +84,6 @@ class AppFirebaseStorage(private val context: Context) {
         }?.addOnFailureListener{
             Toast.makeText(context, "Error saving to DB", Toast.LENGTH_LONG).show()
         }
-        return data
+        return dataRecorded
     }
 }

@@ -55,20 +55,13 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
 
     private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
-//
-//    private var firebaseStore: FirebaseStorage? = null
-//    private var storageReference: StorageReference? = null
 
-    private var myFireStore: AppFirebaseFirestore? = null
-    private var myFirebaseStorage: AppFirebaseStorage? = null
+    private var myFireStore = AppFirebaseFirestore(this, "posts")
+    private var myFirebaseStorage = AppFirebaseStorage(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        // firestore
-        myFirebaseStorage = AppFirebaseStorage(this)
-        myFireStore = AppFirebaseFirestore(this, "posts")
 
         // init adapter
         galleryAdapter = GalleryImageAdapter(imageList)
@@ -125,12 +118,19 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
     }
 
     private fun loadImages() {
-//        imageList.clear()
-        myFireStore?.read()!!.forEach {
-            imageList.add(it)
-        }
-
-        galleryAdapter.notifyDataSetChanged()
+        imageList.clear()
+        val galCollection = myFireStore.getGalleryCollection()
+        galCollection.orderBy("uploadAt", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    imageList.add(Image(document.data.get("imageUrl") as String, "caption is empty te-he"))
+                }
+                galleryAdapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { exc ->
+                Toast.makeText(applicationContext, "fail to load firestore", Toast.LENGTH_LONG).show()
+            }
     }
 
     // handling after opening intent
@@ -147,12 +147,8 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
 
             // TODO: NAME FOR FILE
             val docId = UUID.randomUUID().toString()
-            val addRecord = myFirebaseStorage!!.uploadCaptured(ivTest, docId)
-            myFireStore?.add(addRecord["docId"] as String, addRecord)
-
-            // update recycler
-            imageList.add(0, Image(addRecord["imageUrl"] as String, addRecord["docId"] as String))
-            galleryAdapter.notifyItemInserted(1)
+            val addRecord = myFirebaseStorage?.uploadCaptured(ivTest, docId)
+            loadImages()
         }
 
         // handle intent gallery
@@ -168,11 +164,8 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
 //                setImageBitmap(bitmap)
                 val docId = UUID.randomUUID().toString()
                 val addRecord = myFirebaseStorage!!.uploadImage(filePath, docId)
-                myFireStore?.add(addRecord["docId"] as String, addRecord)
-
-                // update recycler
-                imageList.add(0, Image(addRecord["imageUrl"] as String, addRecord["docId"] as String))
-                galleryAdapter.notifyItemInserted(1)
+                myFireStore.add(docId, addRecord)
+                loadImages()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
