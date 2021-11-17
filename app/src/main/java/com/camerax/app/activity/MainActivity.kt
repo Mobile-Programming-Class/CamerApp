@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,30 +19,19 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-import com.google.android.gms.tasks.Continuation
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.UploadTask
-
 import com.camerax.app.R
 import com.camerax.app.adapter.GalleryImageAdapter
 import com.camerax.app.adapter.GalleryImageClickListener
 import com.camerax.app.adapter.Image
-import com.camerax.app.datatype.UpdateDataType
 import com.camerax.app.fragment.GalleryFullscreenFragment
 import com.camerax.app.helper.AppFirebaseFirestore
 import com.camerax.app.helper.AppFirebaseStorage
-import com.google.firebase.Timestamp.now
 import com.google.firebase.firestore.Query
 
 import java.io.IOException
 import java.util.*
-import kotlin.collections.HashMap
 
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.ByteArrayOutputStream
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), GalleryImageClickListener {
@@ -108,9 +96,18 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
                 return true
             }
 
+            // manager
+            R.id.action_photo_manager -> {
+                val intent = Intent(this, ImageActivity::class.java)
+                startActivity(intent)
+
+                return true
+            }
+
             // exit
             R.id.action_exit ->{
                 Toast.makeText(applicationContext, "click on exit", Toast.LENGTH_LONG).show()
+                moveTaskToBack(true)
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -164,7 +161,7 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
 //                setImageBitmap(bitmap)
                 val docId = UUID.randomUUID().toString()
                 val addRecord = myFirebaseStorage!!.uploadImage(filePath, docId)
-                myFireStore.add(docId, addRecord)
+//                myFireStore.add(docId, addRecord)
                 loadImages()
             } catch (e: IOException) {
                 e.printStackTrace()

@@ -24,21 +24,21 @@ import kotlin.collections.HashMap
 class AppFirebaseStorage(private val context: Context) {
 
     private val storageReference = FirebaseStorage.getInstance().reference
-    private val appFirebaseStorage = AppFirebaseFirestore(context, "posts")
+    private val appFireStore = AppFirebaseFirestore(context, "posts")
     fun getStorageReference (): StorageReference {
         return storageReference
     }
 
     // upload captured pic from camera
     fun uploadCaptured(iv: ImageView, docId: String): HashMap<String, Any> {
-        val ref = storageReference?.child("uploads/" + docId)
+        val ref = storageReference.child("uploads/" + docId)
 
         val bitmap = (iv.drawable as BitmapDrawable).bitmap
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
 
-        var uploadTask = ref?.putBytes(data)
+        var uploadTask = ref.putBytes(data)
         return runningUploadTask(ref, uploadTask, docId)
     }
 
@@ -76,7 +76,7 @@ class AppFirebaseStorage(private val context: Context) {
                 dataRecorded["imageUrl"] = downloadUri.toString()
                 dataRecorded["uploadAt"] = Timestamp.now()
 
-                appFirebaseStorage.add(docId, dataRecorded)
+                appFireStore.add(docId, dataRecorded)
 
             } else {
                 Toast.makeText(context, "Error saving to DB", Toast.LENGTH_LONG).show()

@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/drawable/btn_bg.xml" value="2.1214285714285714" />
+        <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/drawable/btn_bg_green.xml" value="0.3255208333333333" />
+        <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/drawable/btn_bg_red.xml" value="0.75" />
+        <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/activity_contact.xml" value="0.309375" />
+        <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/activity_image.xml" value="0.309375" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/activity_main.xml" value="0.2015625" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/fragment_gallery_fullscreen.xml" value="0.276268115942029" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/image_fullscreen.xml" value="0.276268115942029" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/item_gallery_image.xml" value="0.20520833333333333" />
+        <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/item_image.xml" value="0.8364197530864198" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/menu/menu_main.xml" value="0.20520833333333333" />
       </map>
     </option>

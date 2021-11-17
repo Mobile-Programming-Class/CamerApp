@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.MainActivity"
+    android:fillViewport="true">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,7 +26,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black"
+            android:background="@color/purple_500"
             android:minHeight="?attr/actionBarSize">
         </androidx.appcompat.widget.Toolbar>
 
@@ -42,7 +49,12 @@
             android:id="@+id/ivTest"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/diluc"/>
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginBottom="90dp"
+            android:src="@drawable/diluc" />
     </com.camerax.app.helper.SquareLayout>
 
 </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".activity.ImageActivity"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".contact.ContactActivity"
+        android:padding="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="Input Nama : "
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:id="@+id/etSearchLabel"/>
+
+        <EditText
+            android:id="@+id/etInputName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/etSearchLabel"
+            android:autofillHints="Input Nama Barang"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
+
+        <ImageButton
+            android:id="@+id/btnAddFromCamera"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/etInputName"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/btn_bg"
+            android:src="@drawable/ic_cam"
+            tools:ignore="ButtonStyle" />
+        <ImageButton
+            android:id="@+id/btnAddFromGallery"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_below="@id/etInputName"
+            android:layout_toEndOf="@id/btnAddFromCamera"
+            android:src="@drawable/ic_gallery"
+            android:background="@drawable/btn_bg"
+            tools:ignore="ButtonStyle"/>
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_below="@id/etInputName"
+            android:layout_toEndOf="@id/btnAddFromGallery"
+            android:src="@drawable/ic_delete"
+            android:background="@drawable/btn_bg_red"
+            tools:ignore="ButtonStyle"/>
+
+        <ImageButton
+            android:id="@+id/btnRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@id/etInputName"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toEndOf="@id/btnDelete"
+            android:background="@drawable/btn_bg_green"
+            android:src="@drawable/ic_refresh"
+            tools:ignore="ButtonStyle" />
+
+        <ImageView
+            android:id="@+id/ivToUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnRefresh"
+            android:layout_alignStart="@+id/btnAddFromCamera"
+            android:layout_alignEnd="@+id/btnRefresh" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/ivToUpload"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_image" />
+    </RelativeLayout>
+</ScrollView>

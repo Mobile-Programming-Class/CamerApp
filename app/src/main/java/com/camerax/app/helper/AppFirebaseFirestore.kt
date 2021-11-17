@@ -54,7 +54,7 @@ class AppFirebaseFirestore(private val context: Context, collection: String) {
 
     fun delete(docId: String) {
         galleryCollection.document(docId).delete()
-            .addOnSuccessListener { Toast.makeText(context, "Success delete data", Toast.LENGTH_LONG).show() }
-            .addOnFailureListener { Toast.makeText(context, "Failed delete data", Toast.LENGTH_LONG).show() }
+            .addOnSuccessListener { Toast.makeText(context, "Success delete in firestore", Toast.LENGTH_LONG).show() }
+            .addOnFailureListener { Toast.makeText(context, "Failed delete in firestore", Toast.LENGTH_LONG).show() }
     }
 }
