@@ -31,7 +31,12 @@ import com.camerax.app.R
 import com.camerax.app.adapter.GalleryImageAdapter
 import com.camerax.app.adapter.GalleryImageClickListener
 import com.camerax.app.adapter.Image
+import com.camerax.app.datatype.UpdateDataType
 import com.camerax.app.fragment.GalleryFullscreenFragment
+import com.camerax.app.helper.AppFirebaseFirestore
+import com.camerax.app.helper.AppFirebaseStorage
+import com.google.firebase.Timestamp.now
+import com.google.firebase.firestore.Query
 
 import java.io.IOException
 import java.util.*
@@ -39,6 +44,7 @@ import kotlin.collections.HashMap
 
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), GalleryImageClickListener {
     // gallery column count
@@ -49,15 +55,20 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
 
     private val PICK_IMAGE_REQUEST = 71
     private var filePath: Uri? = null
-    private var firebaseStore: FirebaseStorage? = null
-    private var storageReference: StorageReference? = null
+//
+//    private var firebaseStore: FirebaseStorage? = null
+//    private var storageReference: StorageReference? = null
+
+    private var myFireStore: AppFirebaseFirestore? = null
+    private var myFirebaseStorage: AppFirebaseStorage? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        firebaseStore = FirebaseStorage.getInstance()
-        storageReference = FirebaseStorage.getInstance().reference
+        // firestore
+        myFirebaseStorage = AppFirebaseStorage(this)
+        myFireStore = AppFirebaseFirestore(this, "posts")
 
         // init adapter
         galleryAdapter = GalleryImageAdapter(imageList)
@@ -115,39 +126,9 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
 
     private fun loadImages() {
 //        imageList.clear()
-        val db = FirebaseFirestore.getInstance()
-        val datas = ArrayList<HashMap<String, Any>>()
-        db.collection("posts")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-//                    Log.d(TAG, "${document.id} => ${document.data}")
-
-//                    val record = HashMap<String, Any>()
-//                    record["imageUrl"] = document.data.get("imageUrl") as Any//["imageUrl"] as Any//.get("imageUrl") as Any
-//                    datas.add(record)
-
-                    imageList.add(Image(document.data.get("imageUrl") as String, "caption is empty te-he"))
-                    Toast.makeText(this, document.data.get("imageUrl") as String, Toast.LENGTH_LONG).show()
-                }
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Error getting documents: " + exception, Toast.LENGTH_LONG).show()
-            }
-
-
-        imageList.add(Image("https://firebasestorage.googleapis.com/v0/b/ets-0053.appspot.com/o/uploads%2F6ea09acf-4a05-4f71-8dfc-d96da1062269?alt=media&token=5326532e-41b3-4830-9ee7-a39299466ef4", "Beach Houses"))
-        imageList.add(Image("https://i.ibb.co/gM5NNJX/butterfly.jpg", "Butterfly"))
-        imageList.add(Image("https://i.ibb.co/10fFGkZ/car-race.jpg", "Car Racing"))
-        imageList.add(Image("https://i.ibb.co/ygqHsHV/coffee-milk.jpg", "Coffee with Milk"))
-        imageList.add(Image("https://i.ibb.co/7XqwsLw/fox.jpg", "Fox"))
-        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
-        imageList.add(Image("https://i.ibb.co/wc9rSgw/desserts.jpg", "Desserts Table"))
-        imageList.add(Image("https://i.ibb.co/wdrdpKC/kitten.jpg", "Kitten"))
-        imageList.add(Image("https://i.ibb.co/dBCHzXQ/paris.jpg", "Paris Eiffel"))
-        imageList.add(Image("https://i.ibb.co/JKB0KPk/pizza.jpg", "Pizza Time"))
-        imageList.add(Image("https://i.ibb.co/VYYPZGk/salmon.jpg", "Salmon "))
-        imageList.add(Image("https://i.ibb.co/JvWpzYC/sunset.jpg", "Sunset in Beach"))
+        myFireStore?.read()!!.forEach {
+            imageList.add(it)
+        }
 
         galleryAdapter.notifyDataSetChanged()
     }
@@ -163,11 +144,15 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
 
             ivTest.visibility = View.VISIBLE
             ivTest.setImageBitmap(photo)
-            uploadCaptured()
-            loadImages()
 
-            // TODO: POST image captured to server
-            // TODO: Get url of newly posted image and update gallery
+            // TODO: NAME FOR FILE
+            val docId = UUID.randomUUID().toString()
+            val addRecord = myFirebaseStorage!!.uploadCaptured(ivTest, docId)
+            myFireStore?.add(addRecord["docId"] as String, addRecord)
+
+            // update recycler
+            imageList.add(0, Image(addRecord["imageUrl"] as String, addRecord["docId"] as String))
+            galleryAdapter.notifyItemInserted(1)
         }
 
         // handle intent gallery
@@ -179,9 +164,15 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
             filePath = data.data
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+
 //                setImageBitmap(bitmap)
-                uploadImage()
-                loadImages()
+                val docId = UUID.randomUUID().toString()
+                val addRecord = myFirebaseStorage!!.uploadImage(filePath, docId)
+                myFireStore?.add(addRecord["docId"] as String, addRecord)
+
+                // update recycler
+                imageList.add(0, Image(addRecord["imageUrl"] as String, addRecord["docId"] as String))
+                galleryAdapter.notifyItemInserted(1)
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -207,84 +198,4 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
     }
 
-    // saving pics url in firestore
-    private fun addUploadRecordToDb(uri: String){
-        val db = FirebaseFirestore.getInstance()
-
-        val data = HashMap<String, Any>()
-        data["imageUrl"] = uri
-
-        db.collection("posts")
-            .add(data)
-            .addOnSuccessListener { documentReference ->
-                Toast.makeText(this, "Saved to DB", Toast.LENGTH_LONG).show()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error saving to DB", Toast.LENGTH_LONG).show()
-            }
-    }
-
-    // upload captured pic from camera
-    private fun uploadCaptured() {
-        val ref = storageReference?.child("uploads/" + UUID.randomUUID().toString())
-        ivTest.run {
-            ivTest.isDrawingCacheEnabled = true
-            ivTest.buildDrawingCache()
-        }
-
-        val bitmap = (ivTest.drawable as BitmapDrawable).bitmap
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
-
-        var uploadTask = ref?.putBytes(data)
-        runningUploadTask(ref, uploadTask)
-    }
-
-    // upload selected image from gallery
-    private fun uploadImage(){
-        if(filePath != null){
-            val ref = storageReference?.child("uploads/" + UUID.randomUUID().toString())
-            val uploadTask = ref?.putFile(filePath!!)
-
-            runningUploadTask(ref, uploadTask)
-        }else{
-            Toast.makeText(this, "Please Upload an Image", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun runningUploadTask(ref: StorageReference?, uploadTask: UploadTask?) {
-        val urlTask = uploadTask?.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
-                }
-            }
-            return@Continuation ref?.downloadUrl
-        })?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val downloadUri = task.result
-                addUploadRecordToDb(downloadUri.toString())
-            } else {
-                Toast.makeText(this, "Error saving to DB", Toast.LENGTH_LONG).show()
-            }
-        }?.addOnFailureListener{
-            Toast.makeText(this, "Error saving to DB", Toast.LENGTH_LONG).show()
-        }
-    }
 }
-/*
-
-        imageList.add(Image("https://i.ibb.co/wBYDxLq/beach.jpg", "Beach Houses"))
-        imageList.add(Image("https://i.ibb.co/gM5NNJX/butterfly.jpg", "Butterfly"))
-        imageList.add(Image("https://i.ibb.co/10fFGkZ/car-race.jpg", "Car Racing"))
-        imageList.add(Image("https://i.ibb.co/ygqHsHV/coffee-milk.jpg", "Coffee with Milk"))
-        imageList.add(Image("https://i.ibb.co/7XqwsLw/fox.jpg", "Fox"))
-        imageList.add(Image("https://i.ibb.co/L1m1NxP/girl.jpg", "Mountain Girl"))
-        imageList.add(Image("https://i.ibb.co/wc9rSgw/desserts.jpg", "Desserts Table"))
-        imageList.add(Image("https://i.ibb.co/wdrdpKC/kitten.jpg", "Kitten"))
-        imageList.add(Image("https://i.ibb.co/dBCHzXQ/paris.jpg", "Paris Eiffel"))
-        imageList.add(Image("https://i.ibb.co/JKB0KPk/pizza.jpg", "Pizza Time"))
-        imageList.add(Image("https://i.ibb.co/VYYPZGk/salmon.jpg", "Salmon "))
-        imageList.add(Image("https://i.ibb.co/JvWpzYC/sunset.jpg", "Sunset in Beach"))
- */
