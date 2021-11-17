@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -67,6 +68,8 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
             == PackageManager.PERMISSION_DENIED)
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST)
 
+        toolbar.setTitleTextColor(Color.WHITE)
+        toolbar.setSubtitleTextColor(Color.WHITE)
         setSupportActionBar(toolbar)
     }
 
