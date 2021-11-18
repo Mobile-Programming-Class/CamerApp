@@ -91,6 +91,7 @@ dependencies {
 ```
 
 # Struktur
+In our implementation, here is the list of files that we create or change
 
 ## PROGRAM
 
@@ -120,6 +121,10 @@ dependencies {
     - btn_bg_green
     - btn_bg_red
     - row_bg
+    - ic_cam
+    - ic_delete
+    - ic_gallery
+    - ic_refresh
 - layout
     - activity_image
     - activity_main
@@ -134,4 +139,8 @@ dependencies {
     - strings
     - themes
 
-file tambahan ~/app/google-services.json digunakan untuk konfigurasi Firebase
+## Manifest
+<a href="/app/src/main/AndroidManifest.xml">AndroidManifest</a>
+
+## google-services.json Firebase
+ file tambahan ~/app/google-services.json digunakan untuk konfigurasi Firebase
