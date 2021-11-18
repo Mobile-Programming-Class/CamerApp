@@ -94,44 +94,44 @@ dependencies {
 
 ## PROGRAM
 
-<a href="/app/src/main/java/com/camerax/app/activity/">activity</a>
-    <a href="/app/src/main/java/com/camerax/app/activity/ImageActivity.kt">ImageActivity</a>
-    <a href="/app/src/main/java/com/camerax/app/activity/ImageActivity.kt">MainActivity</a>
-<a href="/app/src/main/java/com/camerax/app/adapter/">adapter</a>
-    <a href="/app/src/main/java/com/camerax/app/adapter/GalleryImageAdapter.kt">GalleryImageAdapter</a>
-    <a href="/app/src/main/java/com/camerax/app/adapter/GalleryImageClickListener.kt">GalleryImageClickListener</a>
-    <a href="/app/src/main/java/com/camerax/app/adapter/Image.kt">Image</a>
-    <a href="/app/src/main/java/com/camerax/app/adapter/ImageManagerAdapter.kt">ImageManagerAdapter</a>
-<a href="/app/src/main/java/com/camerax/app/datatype/">datatype</a>
-    <a href="/app/src/main/java/com/camerax/app/datatype/UpdateDataType.kt">UpdateDataType</a>
-<a href="/app/src/main/java/com/camerax/app/fragment/">fragment</a>
-    <a href="/app/src/main/java/com/camerax/app/fragment/GalleryFullscreenFragment.kt">GalleryFullscreenFragment</a>
-<a href="/app/src/main/java/com/camerax/app/helper/">helper</a>
-    <a href="/app/src/main/java/com/camerax/app/helper/AppFIrebaseFirestore.kt">AppFIrebaseFirestore</a>
-    <a href="/app/src/main/java/com/camerax/app/helper/AppFIrebaseStorage.kt">AppFIrebaseStorage</a>
-    <a href="/app/src/main/java/com/camerax/app/helper/MyAppGlideModule.kt">MyAppGlideModule</a>
-    <a href="/app/src/main/java/com/camerax/app/helper/SquareLayout.kt">SquareLayout</a>
-    <a href="/app/src/main/java/com/camerax/app/helper/ZoomOutPageTransformer.kt">ZoomOutPageTransformer</a>
+- <a href="/app/src/main/java/com/camerax/app/activity/">activity</a>
+    - <a href="/app/src/main/java/com/camerax/app/activity/ImageActivity.kt">ImageActivity</a>
+    - <a href="/app/src/main/java/com/camerax/app/activity/ImageActivity.kt">MainActivity</a>
+- <a href="/app/src/main/java/com/camerax/app/adapter/">adapter</a>
+    - <a href="/app/src/main/java/com/camerax/app/adapter/GalleryImageAdapter.kt">GalleryImageAdapter</a>
+    - <a href="/app/src/main/java/com/camerax/app/adapter/GalleryImageClickListener.kt">GalleryImageClickListener</a>
+    - <a href="/app/src/main/java/com/camerax/app/adapter/Image.kt">Image</a>
+    - <a href="/app/src/main/java/com/camerax/app/adapter/ImageManagerAdapter.kt">ImageManagerAdapter</a>
+- <a href="/app/src/main/java/com/camerax/app/datatype/">datatype</a>
+    - <a href="/app/src/main/java/com/camerax/app/datatype/UpdateDataType.kt">UpdateDataType</a>
+- <a href="/app/src/main/java/com/camerax/app/fragment/">fragment</a>
+    - <a href="/app/src/main/java/com/camerax/app/fragment/GalleryFullscreenFragment.kt">GalleryFullscreenFragment</a>
+- <a href="/app/src/main/java/com/camerax/app/helper/">helper</a>
+    - <a href="/app/src/main/java/com/camerax/app/helper/AppFIrebaseFirestore.kt">AppFIrebaseFirestore</a>
+    - <a href="/app/src/main/java/com/camerax/app/helper/AppFIrebaseStorage.kt">AppFIrebaseStorage</a>
+    - <a href="/app/src/main/java/com/camerax/app/helper/MyAppGlideModule.kt">MyAppGlideModule</a>
+    - <a href="/app/src/main/java/com/camerax/app/helper/SquareLayout.kt">SquareLayout</a>
+    - <a href="/app/src/main/java/com/camerax/app/helper/ZoomOutPageTransformer.kt">ZoomOutPageTransformer</a>
 
 ## LAYOUT
 
-drawable
-    btn_bg
-    btn_bg_green
-    btn_bg_red
-    row_bg
-layout
-    activity_image
-    activity_main
-    fragment_gallery_fullscreen
-    image_fullscreen
-    item_gallery_image
-    item_image
-menu
-    menu_main
-values
-    colors
-    strings
-    themes
+- drawable
+    - btn_bg
+    - btn_bg_green
+    - btn_bg_red
+    - row_bg
+- layout
+    - activity_image
+    - activity_main
+    - fragment_gallery_fullscreen
+    - image_fullscreen
+    - item_gallery_image
+    - item_image
+- menu
+    - menu_main
+- values
+    - colors
+    - strings
+    - themes
 
 file tambahan ~/app/google-services.json digunakan untuk konfigurasi Firebase
