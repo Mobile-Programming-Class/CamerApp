@@ -64,10 +64,12 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
         // load images
         loadImages()
 
+        // request permission to use camera
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_DENIED)
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST)
 
+        // setup toolbar
         toolbar.setTitleTextColor(Color.WHITE)
         toolbar.setSubtitleTextColor(Color.WHITE)
         setSupportActionBar(toolbar)

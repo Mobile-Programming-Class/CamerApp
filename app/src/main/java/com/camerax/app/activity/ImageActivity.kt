@@ -140,14 +140,20 @@ class ImageActivity : AppCompatActivity(), GalleryImageClickListener {
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    imageList.add(Image(document.data.get("imageUrl") as String, "caption is empty te-he", document.data.get("docId") as String))
+                    imageList.add(
+                        Image(
+                            document.data.get("imageUrl") as String,
+                            "caption is empty te-he",
+                            document.data.get("docId") as String))
                 }
                 ivToUpload.visibility = View.INVISIBLE
                 ivToUpload.getLayoutParams().height = 0;
                 galleryAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exc ->
-                Toast.makeText(applicationContext, "fail to load firestore", Toast.LENGTH_LONG).show()
+                Toast
+                    .makeText(applicationContext, "fail to load firestore", Toast.LENGTH_LONG)
+                    .show()
             }
     }
 
@@ -155,12 +161,20 @@ class ImageActivity : AppCompatActivity(), GalleryImageClickListener {
     override fun onClick(position: Int) {
         val image = imageList.get(position)
         pointerImage = image
-        Toast.makeText(this, "choose position " + pointerImage?.docId.toString(), Toast.LENGTH_LONG).show()
+        Toast
+            .makeText(this,
+                "choose position " + pointerImage?.docId.toString(),
+                Toast.LENGTH_LONG)
+            .show()
     }
 
     private fun deleteSelected () {
         if ( pointerImage != null ) {
-            Toast.makeText(this, "attempt to delete " + pointerImage?.docId.toString(), Toast.LENGTH_LONG).show()
+            Toast
+                .makeText(this,
+                    "attempt to delete " + pointerImage?.docId.toString(),
+                    Toast.LENGTH_LONG)
+                .show()
             myFirebaseStorage.getStorageReference()
                 .child( "uploads/" + pointerImage?.docId.toString())
                 .delete()
@@ -168,10 +182,17 @@ class ImageActivity : AppCompatActivity(), GalleryImageClickListener {
                     myFireStore.delete(pointerImage?.docId.toString())
                     pointerImage = null
                 }.addOnFailureListener {
-                    Toast.makeText(this, "Fail to delete in storage" + it.message, Toast.LENGTH_LONG).show()
+                    Toast
+                        .makeText(this,
+                            "Fail to delete in storage" + it.message,
+                            Toast.LENGTH_LONG)
+                        .show()
                 }
         } else {
-            Toast.makeText(this, "Please select the item", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,
+                "Please select the item",
+                Toast.LENGTH_LONG)
+                .show()
         }
     }
 }
