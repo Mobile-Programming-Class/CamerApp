@@ -100,6 +100,13 @@ class MainActivity : AppCompatActivity(), GalleryImageClickListener {
             }
 
             // manager
+            R.id.btn_menu_refresh -> {
+                loadImages()
+
+                return true
+            }
+
+            // manager
             R.id.action_photo_manager -> {
                 val intent = Intent(this, ImageActivity::class.java)
                 startActivity(intent)

@@ -7,4 +7,5 @@
     <string name="action_add_to_firebase">Upload Image</string>
     <string name="action_add_from_gallery">Upload Gallery Image</string>
     <string name="action_photo_manager">Photo Manager</string>
+    <string name="btn_menu_refresh">Refresh</string>
 </resources>
