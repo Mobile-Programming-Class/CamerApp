@@ -12,11 +12,9 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.camerax.app.R
-import com.camerax.app.adapter.GalleryImageAdapter
 import com.camerax.app.adapter.GalleryImageClickListener
 import com.camerax.app.adapter.Image
 import com.camerax.app.adapter.ImageManagerAdapter

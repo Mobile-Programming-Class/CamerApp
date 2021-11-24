@@ -8,4 +8,7 @@
     <string name="action_add_from_gallery">Upload Gallery Image</string>
     <string name="action_photo_manager">Photo Manager</string>
     <string name="btn_menu_refresh">Refresh</string>
+    <string name="firebase_db">Firebase db</string>
+    <string name="instapp_server">Instapp server</string>
+    <string name="close">close</string>
 </resources>

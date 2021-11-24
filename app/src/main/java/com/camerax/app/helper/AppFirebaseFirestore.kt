@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.Toast
 import com.camerax.app.adapter.Image
 import com.camerax.app.datatype.UpdateDataType
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query

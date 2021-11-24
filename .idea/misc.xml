@@ -8,8 +8,10 @@
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/drawable/btn_bg_red.xml" value="0.75" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/drawable/row_bg.xml" value="0.24322916666666666" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/activity_contact.xml" value="0.309375" />
+        <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/activity_firebase.xml" value="0.3072916666666667" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/activity_image.xml" value="0.309375" />
-        <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/activity_main.xml" value="0.2015625" />
+        <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/activity_instapp.xml" value="0.3072916666666667" />
+        <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/activity_main.xml" value="0.42916666666666664" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/fragment_gallery_fullscreen.xml" value="0.276268115942029" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/image_fullscreen.xml" value="0.276268115942029" />
         <entry key="..\:/developing/project/mobile/CamerApp/app/src/main/res/layout/item_gallery_image.xml" value="0.20520833333333333" />
