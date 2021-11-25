@@ -25,8 +25,8 @@ interface NetworkServices {
 //    fun getWeather(): Call<Weather>
 
 
-    @GET("foto/")
-    fun deleteById(@Query("id") id:Int): Call<General>
+    @GET("foto/{id}")
+    fun deleteById(@Path("id") id: String): Call<General>
 }
 
 object DataServices {

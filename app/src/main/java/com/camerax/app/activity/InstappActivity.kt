@@ -235,7 +235,9 @@ class InstappActivity : AppCompatActivity(), GalleryImageClickListener {
         if ( pointerImage != null ) {
             // TODO: delete to instapp
             val networkServices = DataServices.create()
-            val call = networkServices.deleteById(pointerImage?.docId!!.toInt())
+            val call = networkServices.deleteById(pointerImage?.docId!!)
+            Toast.makeText(getApplicationContext(), "deleting" + pointerImage?.docId!!,
+                Toast.LENGTH_LONG).show()
 
             call.enqueue(object: Callback<General>{
                 override fun onFailure(call: Call<General>, t: Throwable) {
